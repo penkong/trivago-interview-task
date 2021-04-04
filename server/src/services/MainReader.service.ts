@@ -1,51 +1,22 @@
-import { CsvReaderReader } from './CsvReader.service'
-
-interface IMatches {[key: string] : string[]}
-interface IRefined {[key: string] : ITrivigoItem}
-
-
-export interface ITrivigoItem {
-  event_id : string; 
-  event_image_path: string
-  event_name: string;
-  performance_start: string;
-  performance_sold_out: string | '';
-  event_category: string;
-  ticket_type: string;
-  ticket_min_price: string;
-  ticket_max_price: string;
-  ticket_currency: string | 'GBP';
-  destination_id: string;
-  destination_name: string;
-  venue_id: string;
-  venue_name: string;
-  venue_address: string;
-  venue_postal_code: string;
-  venue_town: string;
-  event_alternative_description: string;
-  event_official_description: string;
-  venue_phone: string;
-}
-
-interface DataReader {
-	read(): void
-	data: string[][]
-}
+import { CsvReader } from './CsvReader.service'
+import { IMatches, IRefined, IDataReader } from '../types/'
 
 
 // this accept any reader from csv
-export class MainReader {
-	static fromCsv(filename: string): MainReader {
-		return new MainReader(new CsvReaderReader(filename))
-	}
+export class MainInfoBuilder {
 
 	matches: IMatches = {}
 	refined: IRefined = {}
-	
 
-	constructor(public reader: DataReader) {}
 
-	loadSet(): void {
+	static makeCsv(filename: string): MainInfoBuilder {
+		return new MainInfoBuilder(new CsvReader(filename))
+	}
+
+
+	constructor(public reader: IDataReader) {}
+
+	loader(): void {
 		this.reader.read()
 		
 		this.reader.data.forEach(
@@ -59,13 +30,19 @@ export class MainReader {
 			}
 		)
 
-		// delete damned event_id : {} from , it took 3 million hours of me :)
+		// delete damned event_id : {} from source, it took 3 million hours of me :)
 		delete this.matches[Object.keys(this.matches).reverse().shift()!]
-
 	}
 
-	refine() {
+	refiner() {
 		for(const [key, val] of Object.entries(this.matches)) {
+			
+			const [	
+				event_alternative_description,
+				event_official_description,
+				venue_phone
+			] = this.conflictResolver(val[19], val[18], val[17])
+
 			this.refined[key] = {
 				event_id : val[0], 
 				event_image_path: val[1],
@@ -84,11 +61,38 @@ export class MainReader {
 				venue_address: val[14],
 				venue_postal_code: val[15],
 				venue_town: val[16],
-				event_alternative_description: val[17],
-				event_official_description: val[18],
-				venue_phone: val[19],
+				event_alternative_description,
+				event_official_description,
+				venue_phone
 			}
-			console.log(this.refined[key]['event_alternative_description'].length)
 		}
 	}
+
+	isPhone(info: string) {
+		return parseInt(info.split(' ')[0]) ?  info  : '' ;
+	}
+
+	conflictResolver(el1: string, el2: string, el3: string) {
+			let alternative = '';
+			let official = '';
+			let phone = '';
+
+			if (!this.isPhone(el1)) {
+
+				phone = '';
+				if(el2.length < 4) official = el1;
+				else alternative = el3 + el1;
+
+			} else {
+
+				phone = el1;
+				official = el2.length > 4 ? el2 : '';
+				alternative = el3
+
+			}
+
+		return [alternative, official, phone]
+	}
+
 }
+

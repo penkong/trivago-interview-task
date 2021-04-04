@@ -13,7 +13,7 @@ import { ApolloServer } from "apollo-server";
 import { typeDefs } from './graphql/typeDefs';
 import { resolvers } from './graphql/resolvers';
 
-import { MainReader } from './services/';
+import { MainInfoBuilder } from './services/';
 
 
 const PORT = process.env.PORT;
@@ -25,8 +25,8 @@ const server = new ApolloServer({
 });
 
 server.listen({ port: PORT }, () => {
-  const reader = MainReader.fromCsv('./events_trivago_case_study.csv')
-  reader.loadSet()
-  reader.refine()
+  const reader = MainInfoBuilder.makeCsv('./events_trivago_case_study.csv')
+  reader.loader()
+  reader.refiner()
 });
 
