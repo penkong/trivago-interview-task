@@ -27,6 +27,7 @@ server.listen({ port: PORT },  () => {
   RedisPersist.on('ready', async () => {
     console.log('redis ready!');
     await dataBootStraper();
+    console.log('data added to db!')
   })
 });
 

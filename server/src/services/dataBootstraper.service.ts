@@ -28,6 +28,9 @@ export const dataBootStraper = async () => {
   for (const [key, val] of Object.entries(trivigo.refined)) {
     const exist = await RedisPersist.exists(key)
     if(exist) continue
-    await RedisPersist.hmset(key, JSON.stringify(val))
+    await RedisPersist.hmset(key, ...Object.entries(val))
   }
+
+  reader.events = {}
+  trivigo.refined = {}
 }
