@@ -1,4 +1,4 @@
-export interface IMatches {[key: string] : string[]}
+export interface IEvents {[key: string] : string[]}
 export interface IRefined {[key: string] : ITrivigoItem}
 
 

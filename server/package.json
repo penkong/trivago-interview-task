@@ -4,24 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "migrate": "node-pg-migrate",
     "dev": "nodemon --exec ts-node src/index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/ioredis": "^4.22.2",
     "apollo-server": "^2.22.2",
     "dotenv-safe": "^8.2.0",
     "graphql": "^15.5.0",
-    "pg": "^8.5.1",
+    "ioredis": "^4.25.0",
     "reflect-metadata": "^0.1.13",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/node": "^14.14.37",
     "@types/uuid": "^8.3.0",
-    "node-pg-migrate": "^5.9.0",
     "nodemon": "^2.0.7",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.3"

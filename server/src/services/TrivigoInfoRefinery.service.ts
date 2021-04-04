@@ -1,41 +1,21 @@
-import { CsvReader } from './CsvReader.service'
-import { IMatches, IRefined, IDataReader } from '../types/'
+import { IEvents, IRefined } from '../types/';
+
+export class TrivigoInfoRefinery {
+
+  refined: IRefined = {}
 
 
-// this accept any reader from csv
-export class MainInfoBuilder {
-
-	matches: IMatches = {}
-	refined: IRefined = {}
-
-
-	static makeCsv(filename: string): MainInfoBuilder {
-		return new MainInfoBuilder(new CsvReader(filename))
+  // makeCsv leverage composition pattern
+	static makeData(events: IEvents): TrivigoInfoRefinery {
+		return new TrivigoInfoRefinery(events)
 	}
 
+	constructor(public info: IEvents) {}
 
-	constructor(public reader: IDataReader) {}
-
-	loader(): void {
-		this.reader.read()
-		
-		this.reader.data.forEach(
-			(data : any) => {
-
-				while(data.length > 20) {
-					data.pop()
-				}
-
-				this.matches[data[0]] = data
-			}
-		)
-
-		// delete damned event_id : {} from source, it took 3 million hours of me :)
-		delete this.matches[Object.keys(this.matches).reverse().shift()!]
-	}
-
-	refiner() {
-		for(const [key, val] of Object.entries(this.matches)) {
+  // refiner map loaded data to a shape that other part of app can
+	// use base on event_id
+  refiner() {
+		for(const [key, val] of Object.entries(this.info)) {
 			
 			const [	
 				event_alternative_description,
@@ -68,10 +48,16 @@ export class MainInfoBuilder {
 		}
 	}
 
-	isPhone(info: string) {
-		return parseInt(info.split(' ')[0]) ?  info  : '' ;
+  // isPhone is specific to this class , and this type of csv 
+  // and maybe not useful to draw it out as utility.
+  // it detect the last element of array is phone or a description.
+	isPhone(el: string) {
+		return parseInt(el.split(' ')[0]) ?  el  : '' ;
 	}
 
+  // conflictResolver is fully related to this class and this type of csv
+	// last 3 part of each row in provided csv have overlap with eachother
+	// in some venue phone contain descriptions 
 	conflictResolver(el1: string, el2: string, el3: string) {
 			let alternative = '';
 			let official = '';
@@ -93,6 +79,4 @@ export class MainInfoBuilder {
 
 		return [alternative, official, phone]
 	}
-
 }
-

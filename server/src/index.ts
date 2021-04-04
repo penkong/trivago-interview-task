@@ -1,4 +1,3 @@
-// const __prod__ = process.env.NODE_ENV === "production";
 // --- poly
 
 import "reflect-metadata";
@@ -13,7 +12,7 @@ import { ApolloServer } from "apollo-server";
 import { typeDefs } from './graphql/typeDefs';
 import { resolvers } from './graphql/resolvers';
 
-import { MainInfoBuilder } from './services/';
+import { dataBootStraper, RedisPersist } from './services/';
 
 
 const PORT = process.env.PORT;
@@ -21,12 +20,13 @@ const PORT = process.env.PORT;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req }) => ({ req })
+  context: ({ req }) => ({ req, RedisPersist })
 });
 
-server.listen({ port: PORT }, () => {
-  const reader = MainInfoBuilder.makeCsv('./events_trivago_case_study.csv')
-  reader.loader()
-  reader.refiner()
+server.listen({ port: PORT },  () => {
+  RedisPersist.on('ready', async () => {
+    console.log('redis ready!');
+    await dataBootStraper();
+  })
 });
 
