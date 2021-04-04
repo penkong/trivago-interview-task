@@ -47,24 +47,3 @@ export const typeDefs = gql`
     deleteDestination(destinationId: ID!): Destination!
   }
 `;
-
-// event_id;
-//   event_image_path;
-//   event_name;
-//   performance_starts;
-//   performance_sold_out;
-//   event_category;
-//   ticket_type;
-//   ticket_min_price;
-//   ticket_max_price;
-//   ticket_currency;
-//   destination_id;
-//   destination_name;
-//   venue_id;
-//   venue_name;
-//   venue_address;
-//   venue_postal_code;
-//   venue_town;
-//   event_alternative_description;
-//   event_official_description;
-  // venue_phone
