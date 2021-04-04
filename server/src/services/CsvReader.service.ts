@@ -12,7 +12,7 @@ export class CsvReaderReader {
 			})
 			.split('\n')
 			.map((row: string): string[] => {
-				return row.split(',')
+				return row.split(';')
 			})
 	}
 }

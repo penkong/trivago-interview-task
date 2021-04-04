@@ -1,11 +1,13 @@
 import { CsvReaderReader } from './CsvReader.service'
 
+interface IMatches {[key: string] : string[]}
+
 interface DataReader {
 	read(): void
 	data: string[][]
 }
 
-interface Data {}
+// interface Data {}
 
 // this accept any reader from csv
 export class MainReader {
@@ -13,16 +15,21 @@ export class MainReader {
 		return new MainReader(new CsvReaderReader(filename))
 	}
 
-	matches: Data[] = []
+	matches: IMatches = {}
+	
 
 	constructor(public reader: DataReader) {}
 
 	load(): void {
 		this.reader.read()
-		this.matches = this.reader.data.map(
-			(_: string[]): Data => [
-				'will return in format we want or call cb() to put on database'
-			]
+		this.reader.data.forEach(
+			(data : any) => {
+				while(data.length > 20) {
+					data.pop()
+				}
+				this.matches[data[0]] = data.length
+			}
 		)
+		
 	}
 }
