@@ -10,7 +10,7 @@ export class TrivigoInfoRefinery {
 		return new TrivigoInfoRefinery(events)
 	}
 
-	constructor(public info: IEvents) {}
+	private constructor(public info: IEvents) {}
 
   // refiner map loaded data to a shape that other part of app can
 	// use base on event_id

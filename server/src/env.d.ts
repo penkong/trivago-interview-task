@@ -4,5 +4,6 @@ declare namespace NodeJS {
     PORT: string;
     DATABASE_URL: string;
     REDIS_URL: string;
+    CSVNAME: string;
   }
 }

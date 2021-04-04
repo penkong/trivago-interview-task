@@ -12,7 +12,7 @@ export class MainInfoBuilder {
 		return new MainInfoBuilder(new CsvReader(filename))
 	}
 
-	constructor(public reader: IDataReader) {}
+	private constructor(public reader: IDataReader) {}
 
 	// loader laod data to matches with IMatches pattern to 
 	// let us save info to redis or any other db , also

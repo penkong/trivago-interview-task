@@ -1,7 +1,8 @@
 // --- poly
 
+import { PORT } from "./config";
 import "reflect-metadata";
-require('dotenv-safe').config();
+
 
 // --- packages
 
@@ -15,7 +16,7 @@ import { resolvers } from './graphql/resolvers';
 import { dataBootStraper, RedisPersist } from './services/';
 
 
-const PORT = process.env.PORT;
+
   
 const server = new ApolloServer({
   typeDefs,
