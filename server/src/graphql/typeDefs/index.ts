@@ -1,22 +1,26 @@
 import {gql} from 'apollo-server'
 
 export const typeDefs = gql`
+  "A destinations has a list of events"
   type Destination {
     id: ID!
     events : [Event]
   }
 
+  "A event has a list of schedule"
   type Event {
     id: ID!
     schedules : [Schedule]
   }
 
+  "A schedule has a venue and a list of performances"
   type Schedule {
     id: ID!
     venue : Venue!
     performances : [Performance]
   }
   
+  "A performance has a list of tickets"
   type Performance {
     id: ID!
     tickets : [Ticket]
@@ -37,55 +41,4 @@ export const typeDefs = gql`
   type Mutation {
     deleteDestination(destinationId: ID!): Destination!
   }
-
-  `;
-  // type Post {
-  //   id: ID!
-  //   body: String!
-  //   createdAt: String!
-  //   username: String!
-  //   comments: [Comment]!
-  //   likes: [Like]!
-  //   likeCount: Int!
-  //   commentCount: Int!
-  // }
-  // type Comment {
-  //   id: ID!
-  //   createdAt: String!
-  //   username: String!
-  //   body: String!
-  // }
-  // type Like {
-  //   id: ID!
-  //   createdAt: String!
-  //   username: String!
-  // }
-  // type User {
-  //   id: ID!
-  //   email: String!
-  //   token: String!
-  //   username: String!
-  //   createdAt: String!
-  // }
-  // input RegisterInput {
-  //   username: String!
-  //   password: String!
-  //   confirmPassword: String!
-  //   email: String!
-  // }
-  // type Query {
-  //   getPosts: [Post]
-  //   getPost(postId: ID!): Post
-  // }
-  // type Mutation {
-  //   register(registerInput: RegisterInput): User!
-  //   login(username: String!, password: String!): User!
-  //   createPost(body: String!): Post!
-  //   deletePost(postId: ID!): String!
-  //   createComment(postId: String!, body: String!): Post!
-  //   deleteComment(postId: ID!, commentId: ID!): Post!
-  //   likePost(postId: ID!): Post!
-  // }
-  // type Subscription {
-  //   newPost: Post!
-  // }
+`;
