@@ -1,8 +1,4 @@
-// --- poly
-
 import { PORT } from "./config";
-import "reflect-metadata";
-
 
 // --- packages
 
@@ -10,25 +6,27 @@ import { ApolloServer } from "apollo-server";
 
 // --- local
 
-import { typeDefs } from './graphql/typeDefs';
-import { resolvers } from './graphql/resolvers';
-
 import { dataBootStraper, RedisPersist } from './services/';
+import { typeDefs, resolvers } from './graphql';
+// import { mockDemonstration } from './graphql';
 
-
-
-  
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  // mocks : mockDemonstration,
   context: ({ req }) => ({ req, RedisPersist })
 });
 
 server.listen({ port: PORT },  () => {
+
   RedisPersist.on('ready', async () => {
+
     console.log('redis ready!');
+
     await dataBootStraper();
-    console.log('data added to db!')
+
+    console.log('data added to redis!');
+
   })
 });
 
