@@ -2,23 +2,31 @@
 ## Create By Mazdak Nazemi
 this is implementaion for an interview task base on trivigo request.
 
-consideration :
+#
+
+## consideration :
 
 - for simplicity we only used base packages and no generator or other good things in Graph world.
+
+- author can do this task with many different stacks and packages .
 
 - you always can add more layer and abstraction to any source code but we consider here to show things in simple way .
 
 - test and all other good things can add in future .
 
+- because api currently do simple thing we use only Master branch for git and ...
+
+#
+
 ## Structure and Folders :
 
-docs : simple place to put upcoming stuff and diagrams for future.
+docs : simple place to put upcoming stuff and diagrams ... for future.
 
 server : base implementaion live there which contains 
   - env : environment variables
   - Makefile : commands for bootstrap
   - Csvfile : raw file
-  - setting and routine files (node_ ... , package.json and ...)
+  - setting and routine files ( node_ ... , package.json and ... )
   - src : impelementaion
       
       - graphql : contain business files for grapql
@@ -28,6 +36,8 @@ server : base implementaion live there which contains
       - config.ts : load up env vars
       - env.d.ts : shim for env
       - index.ts : server runner!
+#    
+
 
 ## What We Have ?
 our api leverage apollo server on server init it call dataBootStraper
@@ -54,14 +64,16 @@ for more good things need more base descriptions ( more queries and Mutations ) 
 
 the way info save in redis can update base on our upcoming queries
 
----
+current query respond in 1ms or 2ms .
+
+#
 
 ### Conclusion :
 
 here we tried to demonstrate development ability to leverage best practices vs fully implemetaion and warmly please consider author context ( live in country with 500% inflation rate ) and he need to 
 respond to many tasks in life .
 
-any question I AM HERE :)
+any question or ambiguity  I AM HERE :)
 
 Best Regards . 
 Mazdak Nazemi .
