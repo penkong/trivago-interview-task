@@ -68,6 +68,31 @@ current query respond in 1ms or 2ms .
 
 #
 
+## Usage :
+
+step 1 :
+```
+// check env file .
+cd server 
+```
+
+step 2 :
+```
+cd server 
+make redis
+```
+step 3 :
+```
+npm install
+```
+step 4 :
+```
+// build , test and other scripts ... also can added.
+npm run dev
+```
+
+#
+
 ### Conclusion :
 
 here we tried to demonstrate development ability to leverage best practices vs fully implemetaion and warmly please consider author context ( live in country with 500% inflation rate ) and he need to 
