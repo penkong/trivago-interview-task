@@ -1,6 +1,5 @@
 # Trivigo , ETL , GraphqL , Typescript 
 ## Create By Mazdak Nazemi
-this is implementaion for an interview task base on trivigo request.
 
 #
 
@@ -92,13 +91,3 @@ npm run dev
 ```
 
 #
-
-### Conclusion :
-
-here we tried to demonstrate development ability to leverage best practices vs fully implemetaion and warmly please consider author context ( live in country with 500% inflation rate ) and he need to 
-respond to many tasks in life .
-
-any question or ambiguity  I AM HERE :)
-
-Best Regards . 
-Mazdak Nazemi .
